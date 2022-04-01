@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, JoinColumn, CreateDateColumn, UpdateDateColumn, OneToOne, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
 import { Account } from '../../account/entity/account.entity'
 import { Transaction } from '../../transaction/entity/transaction.entity'
@@ -14,12 +14,14 @@ export class Transfer {
   @UpdateDateColumn()
   update: Date
 
-  @Column()
+  @OneToOne(() => Transaction)
+  @JoinColumn()
   send: Transaction
 
-  @Column()
+  @OneToOne(() => Transaction)
+  @JoinColumn()
   receive: Transaction
 
-  @Column()
-  name: Account
+  @ManyToOne(() => Account, (account) => account.transaction)
+  account: Account
 }

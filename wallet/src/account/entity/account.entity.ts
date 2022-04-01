@@ -1,4 +1,7 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+
+import { Transfer } from 'src/transfer/entity/transfer.entity'
+import { Transaction } from '../../transaction/entity/transaction.entity'
 
 @Entity()
 export class Account {
@@ -16,4 +19,10 @@ export class Account {
 
   @Column()
   document: string
+
+  @OneToMany(() => Transfer, (transfer) => transfer.account)
+  transfer: Transfer
+
+  @OneToMany(() => Transaction, (transaction) => transaction.account)
+  transaction: Transaction
 }
