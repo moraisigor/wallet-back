@@ -5,6 +5,10 @@ import { Account } from 'src/account/entity/account.entity'
 
 @Entity()
 export class Transaction {
+  constructor(transaction: Partial<Transaction>) {
+    Object.assign(this, transaction)
+  }
+  
   @PrimaryGeneratedColumn('uuid')
   id: string
 
