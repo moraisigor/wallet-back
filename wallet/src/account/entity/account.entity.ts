@@ -1,6 +1,6 @@
 import { Entity, Column, CreateDateColumn, UpdateDateColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { Transfer } from 'src/transfer/entity/transfer.entity'
+import { Transfer } from '../../transfer/entity/transfer.entity'
 import { Transaction } from '../../transaction/entity/transaction.entity'
 
 @Entity()
@@ -23,6 +23,9 @@ export class Account {
 
   @Column()
   document: string
+
+  @Column()
+  balance: number
 
   @OneToMany(() => Transfer, (transfer) => transfer.account)
   transfer: Transfer
