@@ -7,7 +7,7 @@ export class CreateAccountResponse {
   document: string
   balance: number
 
-  constructor(account: Partial<Account>) {
+  constructor(account: Account) {
     this.id = account.id
     this.create = account.create
     this.name = account.name
