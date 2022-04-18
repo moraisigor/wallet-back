@@ -8,5 +8,5 @@ export class CreateAccountRequest {
   document: string
 
   @Min(1)
-  amount: number
+  balance: number
 }
