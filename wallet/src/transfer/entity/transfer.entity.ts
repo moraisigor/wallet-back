@@ -18,11 +18,11 @@ export class Transfer {
   @UpdateDateColumn()
   update: Date
 
-  @OneToOne(() => Transaction, { nullable: false })
+  @OneToOne(() => Transaction, { eager: true, nullable: false })
   @JoinColumn()
   send: Transaction
 
-  @OneToOne(() => Transaction, { nullable: false })
+  @OneToOne(() => Transaction, { eager: true, nullable: false })
   @JoinColumn()
   receive: Transaction
 
