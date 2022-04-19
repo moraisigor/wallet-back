@@ -17,13 +17,13 @@ export class CreateTransferCase {
   async run(request: CreateTransferRequest): Promise<Transfer> {
     const { amount } = request
 
-    const sender = await this.account.find(request.sender)
+    const sender = await this.account.document(request.sender)
 
     if (sender == null) {
       throw new BadRequestException('sender account not found')
     }
 
-    const receiver = await this.account.find(request.receiver)
+    const receiver = await this.account.document(request.receiver)
 
     if (receiver == null) {
       throw new BadRequestException('receiver account not found')
