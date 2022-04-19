@@ -18,14 +18,14 @@ export class Transfer {
   @UpdateDateColumn()
   update: Date
 
-  @OneToOne(() => Transaction)
+  @OneToOne(() => Transaction, { nullable: false })
   @JoinColumn()
   send: Transaction
 
-  @OneToOne(() => Transaction)
+  @OneToOne(() => Transaction, { nullable: false })
   @JoinColumn()
   receive: Transaction
 
-  @ManyToOne(() => Account, (account) => account.transaction)
+  @ManyToOne(() => Account, (account) => account.transaction, { nullable: false })
   account: Account
 }
