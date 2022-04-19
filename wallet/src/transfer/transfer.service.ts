@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common'
 
-import { Repository } from 'typeorm'
-import { InjectRepository } from '@nestjs/typeorm'
-
 import { Transfer } from './entity/transfer.entity'
+import { CreateTransferRequest } from './request/create.transfer.request'
+
+import { CreateTransferCase } from './case/create.transfer.case'
 
 @Injectable()
 export class TransferService {
-  constructor(@InjectRepository(Transfer) private readonly repository: Repository<Transfer>) {}
+  constructor(private readonly transfer: CreateTransferCase) {}
+
+  create(request: CreateTransferRequest): Promise<Transfer> {
+    return this.transfer.run(request)
+  }
 }
