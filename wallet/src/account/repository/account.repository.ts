@@ -20,7 +20,7 @@ export class AccountRepository implements IAccountRepository {
     return this.repository.findOne(id)
   }
 
-  document(document: string): Promise<Account> {
+  findByDocument(document: string): Promise<Account> {
     return this.repository.findOne({ document })
   }
 
