@@ -1,12 +1,15 @@
-import { Min, Length } from 'class-validator'
+import { Min, Length, IsInt, IsString } from 'class-validator'
 
 export class CreateTransferRequest {
-  @Length(36, 36)
+  @Length(11, 11)
+  @IsString()
   sender: string
 
-  @Length(36, 36)
+  @Length(11, 11)
+  @IsString()
   receiver: string
 
   @Min(1)
+  @IsInt()
   amount: number
 }
