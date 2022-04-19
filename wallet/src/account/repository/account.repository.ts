@@ -16,7 +16,11 @@ export class AccountRepository implements IAccountRepository {
     @InjectRepository(Account) private readonly repository: Repository<Account>,
   ) {}
 
-  find(document: string): Promise<Account> {
+  find(id: string): Promise<Account> {
+    return this.repository.findOne(id)
+  }
+
+  document(document: string): Promise<Account> {
     return this.repository.findOne({ document })
   }
 
