@@ -1,6 +1,7 @@
 import { Account } from '../entity/account.entity'
 
 export interface IAccountRepository {
-  find(document: string): Promise<Account>
+  find(id: string): Promise<Account>
+  document(document: string): Promise<Account>
   create(account: Account): Promise<Account>
 }
