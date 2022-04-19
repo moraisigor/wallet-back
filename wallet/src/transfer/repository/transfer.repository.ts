@@ -17,16 +17,16 @@ export class TransferRepository implements ITransferRepository {
     @InjectRepository(Transfer) private readonly repository: Repository<Transfer>,
   ) {}
 
-  find(query: unknown): Promise<Transfer[]> {
+  all(query: unknown): Promise<Transfer[]> {
     return this.repository.find(query)
   }
 
   create(sender: Account, receiver: Account, amount: number): Promise<Transfer> {
     return this.connection.transaction(async (manager: EntityManager) => {
       const send = await manager.save(Transaction, { kind: Kind.DEBIT, amount, account: sender })
-      const recieve = await manager.save(Transaction, { kind: Kind.CREDIT, amount, account: receiver })
+      const receive = await manager.save(Transaction, { kind: Kind.CREDIT, amount, account: receiver })
 
-      return await manager.save(Transfer, { send, recieve, account: sender })
+      return await manager.save(Transfer, { send, receive, account: sender })
     })
   }
 }
