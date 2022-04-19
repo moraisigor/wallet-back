@@ -29,11 +29,13 @@ export class CreateTransferCase {
       throw new BadRequestException('receiver account not found')
     }
 
-    if (amount > sender.balance) {
+    if (sender.balance < amount) {
       throw new BadRequestException('insufficient balance')
     }
 
-    if (this.#duplicate(sender, receiver, amount)) {
+    const duplicate = await this.#duplicate(sender, receiver, amount)
+
+    if (duplicate) {
       throw new BadRequestException('duplicate transaction')
     }
 
@@ -43,7 +45,7 @@ export class CreateTransferCase {
   async #duplicate(sender: Account, receiver: Account, amount: number): Promise<boolean> {
     const current = new Date()
 
-    const list = await this.repository.find({
+    const list = await this.repository.all({
       where: { create: Between(subMinutes(current, 2), current) },
     })
 
