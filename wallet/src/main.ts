@@ -1,8 +1,18 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import 'reflect-metadata'
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+import { NestFactory } from '@nestjs/core'
+import { ValidationPipe } from '@nestjs/common'
+
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
+
+import { AppModule } from './app.module'
+
+const load = async () => {
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
+
+  app.useGlobalPipes(new ValidationPipe())
+
+  await app.listen(4000)
 }
-bootstrap();
+
+load()
