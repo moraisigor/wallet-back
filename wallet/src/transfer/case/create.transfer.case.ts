@@ -46,7 +46,7 @@ export class CreateTransferCase {
     const current = new Date()
 
     const list = await this.repository.all({
-      where: { create: Between(subMinutes(current, 2), current) },
+      where: { create: Between(subMinutes(current, 2).toISOString(), current.toISOString()), account: sender },
     })
 
     return list.some((transfer) => transfer.send.amount == amount && transfer.receive.account.id == receiver.id)
