@@ -24,6 +24,6 @@ export class Transaction {
   @Column()
   amount: number
 
-  @ManyToOne(() => Account, (account) => account.transaction)
+  @ManyToOne(() => Account, (account) => account.transaction, { nullable: false })
   account: Account
 }
