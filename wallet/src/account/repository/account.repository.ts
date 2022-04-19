@@ -33,4 +33,8 @@ export class AccountRepository implements IAccountRepository {
       return account
     })
   }
+
+  update(account: Account): Promise<Account> {
+    return this.repository.save(account)
+  }
 }
