@@ -4,10 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { Account } from './entity/account.entity'
 
 import { AccountService } from './account.service'
+import { CreateAccountCase } from './case/create.account.case'
+
 import { AccountController } from './account.controller'
 import { AccountRepository } from './repository/account.repository'
-
-import { CreateAccountCase } from './case/create.account.case'
 
 @Module({
   imports: [TypeOrmModule.forFeature([Account])],
