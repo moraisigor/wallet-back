@@ -26,6 +26,12 @@ export class TransferRepository implements ITransferRepository {
       const send = await manager.save(Transaction, { kind: Kind.DEBIT, amount, account: sender })
       const receive = await manager.save(Transaction, { kind: Kind.CREDIT, amount, account: receiver })
 
+      sender.balance -= amount
+      receiver.balance += amount
+
+      await manager.save(Account, sender)
+      await manager.save(Account, receiver)
+
       return await manager.save(Transfer, { send, receive, account: sender })
     })
   }

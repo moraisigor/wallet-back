@@ -17,13 +17,13 @@ export class CreateTransferCase {
   async run(request: CreateTransferRequest): Promise<Transfer> {
     const { amount } = request
 
-    const sender = await this.account.document(request.sender)
+    const sender = await this.account.findByDocument(request.sender)
 
     if (sender == null) {
       throw new BadRequestException('sender account not found')
     }
 
-    const receiver = await this.account.document(request.receiver)
+    const receiver = await this.account.findByDocument(request.receiver)
 
     if (receiver == null) {
       throw new BadRequestException('receiver account not found')
@@ -46,7 +46,7 @@ export class CreateTransferCase {
     const current = new Date()
 
     const list = await this.repository.all({
-      where: { create: Between(subMinutes(current, 2), current) },
+      where: { create: Between(subMinutes(current, 2).toISOString(), current.toISOString()), account: sender },
     })
 
     return list.some((transfer) => transfer.send.amount == amount && transfer.receive.account.id == receiver.id)
