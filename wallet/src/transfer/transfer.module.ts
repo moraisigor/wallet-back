@@ -1,6 +1,6 @@
-import { Module } from '@nestjs/common'
+import { Module, forwardRef } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { AccountModule } from 'src/account/account.module'
+import { AccountModule } from '../account/account.module'
 
 import { Transfer } from './entity/transfer.entity'
 
@@ -11,7 +11,8 @@ import { TransferController } from './transfer.controller'
 import { TransferRepository } from './repository/transfer.repository'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Transfer]), AccountModule],
+  imports: [TypeOrmModule.forFeature([Transfer]), forwardRef(() => AccountModule)],
+  exports: [TransferRepository],
   providers: [TransferService, TransferRepository, CreateTransferCase],
   controllers: [TransferController],
 })
