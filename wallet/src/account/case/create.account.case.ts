@@ -10,7 +10,7 @@ export class CreateAccountCase {
   constructor(private readonly repository: AccountRepository) {}
 
   async run({ name, document, balance }: CreateAccountRequest): Promise<Account> {
-    const account = await this.repository.find(document)
+    const account = await this.repository.document(document)
 
     if (account) {
       throw new BadRequestException('account already exists')
